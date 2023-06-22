@@ -3,6 +3,8 @@ using CustomMiddlewareinasp.netcore.CustomMiddleware;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddTransient<CustomMiddlewareByIMiddlewareInterface>();
+
+
 var app = builder.Build();
 //middlware 1
 app.Use(async (HttpContext context, RequestDelegate next) => {
@@ -13,6 +15,7 @@ app.Use(async (HttpContext context, RequestDelegate next) => {
 //middleware 2
 app.UseMiddleware<CustomMiddlewareByIMiddlewareInterface>();
 app.UseCustomMiddleware();
+
 
 
 //middleware 3

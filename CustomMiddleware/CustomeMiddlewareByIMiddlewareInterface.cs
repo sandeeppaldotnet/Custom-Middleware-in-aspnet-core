@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Diagnostics;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
+using System.Threading.Tasks;
 
 namespace CustomMiddlewareinasp.netcore.CustomMiddleware
 {
@@ -25,35 +28,35 @@ namespace CustomMiddlewareinasp.netcore.CustomMiddleware
         }
     }
 
-    //middleware 3
-    //public class TestCustomMiddleware
-    //{
-    //    private readonly RequestDelegate _next;
+   // middleware 3
+    public class TestCustomMiddleware
+    {
+        private readonly RequestDelegate _next;
 
-    //    public TestCustomMiddleware(RequestDelegate next)
-    //    {
-    //        _next = next;
-    //    }
+        public TestCustomMiddleware(RequestDelegate next)
+        {
+            _next = next;
+        }
 
-    //    public async Task Invoke(HttpContext context)
-    //    {
+        public async Task Invoke(HttpContext context)
+        {
 
-    //        //before action
-    //        await context.Response.WriteAsync(" TestCustom middleware start.");
-    //        await _next(context);
-    //        //after action
-    //        await context.Response.WriteAsync(" testCustom middleware start.");
-    //    }
-    //}
-    // Extension method used to add the middleware to the HTTP request pipeline.
-    //public static class TestCustomModdleExtensions
-    //{
-    //    public static IApplicationBuilder UseTestCustomMiddleware(this IApplicationBuilder builder)
-    //    {
-    //        builder.UseMiddleware<CustomMiddlewareByIMiddlewareInterface>();
-    //        return builder.UseMiddleware<TestCustomMiddleware>();
-    //    }
-    //}
+            //before action
+            await context.Response.WriteAsync(" TestCustom middleware start.");
+            await _next(context);
+            //after action
+            await context.Response.WriteAsync(" testCustom middleware start.");
+        }
+    }
+    //Extension method used to add the middleware to the HTTP request pipeline.
+    public static class TestCustomModdleExtensions
+    {
+        public static IApplicationBuilder UseTestCustomMiddleware(this IApplicationBuilder builder)
+        {
+            builder.UseMiddleware<CustomMiddlewareByIMiddlewareInterface>();
+            return builder.UseMiddleware<TestCustomMiddleware>();
+        }
+    }
 
 
 
